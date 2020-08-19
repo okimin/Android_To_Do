@@ -33,10 +33,9 @@ public class MainActivity extends AppCompatActivity implements CreateDialog.Crea
 
     List<String> items;
     Button btnAdd;
-    Button btnCreate;
-    EditText createTxt;
 
-    EditText etItem;
+
+
     RecyclerView rvItems;
     ItemsAdapter itemsAdapter;
 
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements CreateDialog.Crea
         setContentView(R.layout.activity_main);
 
         btnAdd= findViewById(R.id.butnAdd);
-        etItem = findViewById(R.id.etItem);
+
         rvItems = findViewById(R.id.rvItem);
 
 
@@ -102,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements CreateDialog.Crea
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
         if( requestCode== EDIT_TEXT_CODE && resultCode== RESULT_OK){
             String itemText = data.getStringExtra(KEY_ITEM_TEXT);
@@ -151,9 +151,10 @@ public class MainActivity extends AppCompatActivity implements CreateDialog.Crea
 
     @Override
     public void addToList(String item) {
+  Log.i("Daniel", "Point reached");
         items.add(item);
                 itemsAdapter.notifyItemInserted(items.size()-1);
-                etItem.setText("");
+
 
                 Toast.makeText(getApplicationContext(),"Item was added" , Toast.LENGTH_SHORT).show();
                 saveItems();

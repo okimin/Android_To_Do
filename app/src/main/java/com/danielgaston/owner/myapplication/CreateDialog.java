@@ -8,10 +8,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
@@ -34,6 +30,7 @@ public class CreateDialog extends AppCompatDialogFragment {
             }
         });
 
+        newTodo = activity.findViewById(R.id.createTxt);
 
         newActivity.setPositiveButton("ok", new DialogInterface.OnClickListener() {
             @Override
@@ -42,17 +39,11 @@ public class CreateDialog extends AppCompatDialogFragment {
                 String todo= newTodo.getText().toString();
 
                 listener.addToList(todo);
-//                String todoItem = createTxt.getText().toString();
-//                items.add(todoItem);
-//                itemsAdapter.notifyItemInserted(items.size()-1);
-//                createTxt.setText("");
-//
-//                Toast.makeText(getApplicationContext(),"Item was added" , Toast.LENGTH_SHORT).show();
-//                saveItems();
+
             }
         });
 
-        newTodo = activity.findViewById(R.id.createTxt);
+
 
 
 
