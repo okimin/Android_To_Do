@@ -1,13 +1,16 @@
 package com.danielgaston.owner.myapplication;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,7 +24,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CreateDialog.CreateDialogListener {
 
     public static final String KEY_ITEM_TEXT ="item_text";
     public static final String KEY_ITEM_POSITION ="item_position";
@@ -30,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
 
     List<String> items;
     Button btnAdd;
+    Button btnCreate;
+    EditText createTxt;
+
     EditText etItem;
     RecyclerView rvItems;
     ItemsAdapter itemsAdapter;
@@ -42,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         btnAdd= findViewById(R.id.butnAdd);
         etItem = findViewById(R.id.etItem);
         rvItems = findViewById(R.id.rvItem);
+
 
 
         loadItems();
@@ -77,13 +84,15 @@ public class MainActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String todoItem = etItem.getText().toString();
-                items.add(todoItem);
-                itemsAdapter.notifyItemInserted(items.size()-1);
-                etItem.setText("");
 
-                Toast.makeText(getApplicationContext(),"Item was added" , Toast.LENGTH_SHORT).show();
-                saveItems();
+                createActivity();
+//                String todoItem = etItem.getText().toString();
+//                items.add(todoItem);
+//                itemsAdapter.notifyItemInserted(items.size()-1);
+//                etItem.setText("");
+//
+//                Toast.makeText(getApplicationContext(),"Item was added" , Toast.LENGTH_SHORT).show();
+//                saveItems();
             }
         });
 
@@ -132,5 +141,21 @@ public class MainActivity extends AppCompatActivity {
             Log.e("MainActivity","Error writing items", e);
 
         }
+    }
+
+    private void createActivity(){
+        CreateDialog newDialog = new CreateDialog();
+        newDialog.show(getSupportFragmentManager(),"Create To-Do");
+
+    }
+
+    @Override
+    public void addToList(String item) {
+        items.add(item);
+                itemsAdapter.notifyItemInserted(items.size()-1);
+                etItem.setText("");
+
+                Toast.makeText(getApplicationContext(),"Item was added" , Toast.LENGTH_SHORT).show();
+                saveItems();
     }
 }
